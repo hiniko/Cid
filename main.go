@@ -1,9 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"github.com/go-chi/chi/v5"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
@@ -17,8 +19,10 @@ func main() {
 	mux := chi.NewRouter()
 	mux.Get("/status", handleStatus)
 
+	port := os.Getenv("PORT")
+
 	srv := &http.Server{
-		Addr:      ":8080",
+		Addr:      fmt.Sprintf(":%s", port),
 		Handler:   mux,
 		TLSConfig: nil,
 	}
